@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Carta Armadilha</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('egito.jpg');
+            background-size: cover;
+            background-repeat: repeat;
+        }
+        .cartas {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .carta {
+            width: 100px;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo da Carta Armadilha</h1>
+    <p>Clique em uma carta. Se for a carta armadilha, você perde!</p>
+    <div class="cartas" id="cartasContainer"></div>
+    <script>
+        function iniciarRodada() {
+            const container = document.getElementById("cartasContainer");
+            container.innerHTML = "";
+            let armadilha = Math.floor(Math.random() * 6);
+            
+            for (let i = 0; i < 6; i++) {
+                let carta = document.createElement("div");
+                carta.classList.add("carta");
+                carta.style.backgroundImage = "url('CardBack.jpg')";
+                carta.onclick = function() {
+                    if (i === armadilha) {
+                        carta.style.backgroundImage = "url('armadilha.jpg')";
+                        setTimeout(() => alert("Você pegou a Carta Armadilha! Fim de jogo."), 100);
+                    } else {
+                        alert("Você teve sorte! Rodada reiniciada.");
+                    }
+                    setTimeout(iniciarRodada, 1000);
+                };
+                container.appendChild(carta);
+            }
+        }
+        iniciarRodada();
+    </script>
+</body>
+</html>
